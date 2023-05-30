@@ -25,8 +25,11 @@ const HeaderContainer = styled.div`
 `;
 
 const Logo = styled.h2`
-  font-size: 24px;
-  font-weight: bold;
+  font-family: 'Passion One';
+  font-weight: 700;
+  font-size: 49px;
+  line-height: 54px;
+  letter-spacing: 0.05em;
 `;
 
 const UserContainer = styled.div`
@@ -38,6 +41,10 @@ const UserContainer = styled.div`
 
 const UserName = styled.p`
   margin-right: 10px;
+  font-family: 'Oswald';
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 64px;
 `;
 
 const UserImage = styled.img`
