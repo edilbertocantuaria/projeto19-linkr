@@ -3,6 +3,10 @@ import cors from 'cors';
 import chalk from 'chalk';
 import router from './routes/index.routes.js';
 
+
+
+import { signRouter } from "../src/routes/auth.routes.js"
+
 const app = express();
 
 app.use(express.json());
