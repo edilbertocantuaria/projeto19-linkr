@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom"
 import SignIn from "./pages/SignIn/SignIn.js"
 import styled from "styled-components"
 import Header from "./components/header/Header.js"
+import TimelinePage from "./pages/Timeline/TimelinePage.js"
 
 export default function App() {
 
@@ -13,7 +14,7 @@ export default function App() {
         <Header />
         <Routes>
           <Route path="/" element={<SignIn />} />
-
+          <Route path="/timeline" element={<TimelinePage />} />
         </Routes>
 
       </BrowserRouter>
@@ -22,9 +23,5 @@ export default function App() {
 }
 
 const PagesContainer = styled.main`
-
-  background-color: red;
-
-
   
 `
