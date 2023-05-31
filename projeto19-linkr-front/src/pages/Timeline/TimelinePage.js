@@ -1,20 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import apiPosts from '../../services/apiPosts.js';
 import {
   Container,
   FormPublishContainer,
   PublishContainer,
   TimelineContainer,
-  Title
+  Title,
+  LoadingStyle,
+  EmptyStyle
 } from './style.js';
 import Post from '../../components/publications/Post.js';
-
+import { ThreeDots } from 'react-loader-spinner';
 
 export default function TimelinePage() {
   const [isPublishing, setIsPublishing] = useState(false);
   const [isFilled, setIsFilled] = useState(false);
   const [likesCount, setLikesCount] = useState(0);
   const [form, setForm] = useState({ link: '', article: null });
+  const [posts, setPosts] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const handleForm = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -31,7 +35,7 @@ export default function TimelinePage() {
       console.log(response.data);
     } catch (error) {
       setIsPublishing(false);
-      console.log(error.response.data);
+      alert(error.response.data);
     }
   };
 
@@ -39,6 +43,22 @@ export default function TimelinePage() {
     setIsFilled(!isFilled);
     setLikesCount(isFilled ? likesCount - 1 : likesCount + 1);
   };
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        const response = await apiPosts.getPosts();
+        setPosts(response.data);
+        setIsLoading(false);
+        console.log("posts:", posts);
+      } catch (error) {
+        console.error(error);
+        setIsLoading(false);
+      }
+    };
+
+    fetchPosts();
+  }, [isPublishing]);
 
   return (
     <Container>
@@ -59,7 +79,7 @@ export default function TimelinePage() {
                 onChange={handleForm}
                 disabled={isPublishing}
               />
-              <input
+              <textarea
                 placeholder="Awesome article about #javascript"
                 name="article"
                 value={form.article || ''}
@@ -72,11 +92,35 @@ export default function TimelinePage() {
             </form>
           </FormPublishContainer>
         </PublishContainer>
-        <Post
-          isFilled={isFilled}
-          likesCount={likesCount}
-          handleLike={handleLike}
-        />
+        {isLoading ? (
+          <LoadingStyle>
+            <p>Loading</p>
+            <ThreeDots
+              height="15"
+              width="15"
+              radius="9"
+              color="white"
+              ariaLabel="three-dots-loading"
+              wrapperStyle={{}}
+              wrapperClassName=""
+              visible={true}
+            />
+          </LoadingStyle>
+        ) : posts.length > 0 ? (
+          posts.map((post) => (
+            <Post
+              key={post.id}
+              post={post}
+              isFilled={isFilled}
+              likesCount={likesCount}
+              handleLike={handleLike}
+            />
+          ))
+        ) : (
+          <EmptyStyle>
+            <p>There are no posts yet :(</p>
+          </EmptyStyle>
+        )}
       </TimelineContainer>
     </Container>
   );

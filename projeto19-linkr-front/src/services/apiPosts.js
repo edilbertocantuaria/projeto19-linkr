@@ -6,5 +6,11 @@ function postLink(body) {
     return promise;
 };
 
-const apiPosts = { postLink };
+function getPosts() {
+    const promise = axios.get(`
+    ${process.env.REACT_APP_API_URL}/timeline`);
+    return promise;
+}
+
+const apiPosts = { postLink, getPosts };
 export default apiPosts;
