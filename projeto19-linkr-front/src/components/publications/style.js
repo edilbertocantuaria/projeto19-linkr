@@ -22,6 +22,7 @@ export const PostContainer = styled.div`
   padding: 15px;
   gap: 15px;
   margin-bottom: 16px;
+  max-width: fit-content;
   @media (max-width: 600px) {
     border-radius: 0;
   }
@@ -74,23 +75,26 @@ export const ContentContainer = styled.div`
     font-size: 17px;
     line-height: 20px;
   }
-  div {
-  }
+
 `;
 
 export const DataStyle = styled(Link)`
     display: flex;
     img{
-        min-height: fit-content;
-        border-radius: 0;
-        width: 150px;
+        width: 30%;
         height: 100%;
         object-fit: cover;
         border-radius: 0px 11px 11px 0px;
     }
+    @media (max-width: 600px) {
+        img{
+          width: 6rem;
+        }   
+    }
 `;
 export const DataText = styled.div`
     display: flex;
+    flex: 1;
     flex-direction: column;
     gap: 5px;
     padding: 17px;
@@ -98,20 +102,28 @@ export const DataText = styled.div`
     border-right: none;
     border-radius: 10px 0px 0px 11px;
     p{
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow-wrap: break-all;
         &:nth-child(1){
-            font-size: 16px;
+            font-size: 0.8rem;
             line-height: 19px;
             color: #CECECE;
         }
         &:nth-child(2){
-            font-size: 11px;
+            font-size: 0.6rem;
             line-height: 13px;
             color: #9B9595;
+            text-align: justify;
         }
         &:nth-child(3){
-            font-size: 11px;
+            font-size: 0.5rem;
             line-height: 13px;
             color: #CECECE;
+            -webkit-line-clamp: 2;
         }
     }
 ;

@@ -21,10 +21,12 @@ export const Container = styled.div`
   height: calc(100% - 72px);
   display: flex;
   justify-content: center;
+  padding-bottom: 40px;
 `;
 
 export const TimelineContainer = styled.div`
-  width: 611px;
+  width: 100%;
+  max-width: 611px;
 `;
 
 export const Title = styled.h1`
@@ -56,6 +58,9 @@ export const PublishContainer = styled.div`
   }
   @media (max-width: 600px) {
     border-radius: 0;
+    img{
+      display: none;
+    }
   }
 `;
 
@@ -64,7 +69,13 @@ export const FormPublishContainer = styled.div`
   flex-direction: column;
   gap: 10px;
   width: 100%;
-
+  p{
+    font-family: 'Lato';
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 24px;
+    color: #707070;
+  }
   form {
     display: flex;
     flex-direction: column;
@@ -76,20 +87,33 @@ export const FormPublishContainer = styled.div`
       border: none;
       border-radius: 5px;
       padding-left: 10px;
-      &:nth-child(1) {
-        min-height: 30px;
-        ::placeholder {
-          position: absolute;
-          top: 7px;
+      min-height: 30px;
+      outline-color: #151515;
+        &::placeholder {
+          font-family: 'Lato';
+          font-weight: 300;
+          font-size: 15px;
+          line-height: 18px;
+          color: #949494;
         }
-      }
-      &:nth-child(2) {
-        min-height: 66px;
-        ::placeholder {
-          position: absolute;
-          top: 7px;
+    }
+
+    textarea{
+      resize: vertical;
+      background-color: #efefef;
+      border: none;
+      border-radius: 5px;
+      padding-left: 10px;
+      min-height: 66px;
+      padding: 7px;
+      outline-color: #151515;
+      &::placeholder {
+          font-family: 'Lato';
+          font-weight: 300;
+          font-size: 15px;
+          line-height: 18px;
+          color: #949494;
         }
-      }
     }
 
     button {
@@ -103,6 +127,11 @@ export const FormPublishContainer = styled.div`
       background-color: #1877f2;
       color: white;
       cursor: pointer;
+    }
+  }
+  @media (max-width: 600px) {
+    p{
+      text-align: center;
     }
   }
 `;

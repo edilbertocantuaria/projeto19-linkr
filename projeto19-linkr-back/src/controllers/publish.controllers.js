@@ -52,9 +52,9 @@ export async function getPosts(req, res) {
                     return {
                         id: post.id,
                         link: post.link,
-                        title: '',
-                        description: '',
-                        image: '',
+                        title: null,
+                        description: null,
+                        image: null,
                         article: post.article,
                         createdAt: post.createdAt,
                     };

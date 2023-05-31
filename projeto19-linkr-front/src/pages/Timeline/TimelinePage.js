@@ -79,7 +79,7 @@ export default function TimelinePage() {
                 onChange={handleForm}
                 disabled={isPublishing}
               />
-              <input
+              <textarea
                 placeholder="Awesome article about #javascript"
                 name="article"
                 value={form.article || ''}

@@ -1,4 +1,5 @@
 import React from 'react';
+import linkrLogo from '../../assets/linkrLogo.png';
 import {
     ContentContainer,
     PostContainer,
@@ -35,7 +36,7 @@ export default function Post({ post, isFilled, likesCount, handleLike }) {
                         <p>{post.description}</p>
                         <p>{post.link}</p>
                     </DataText>
-                    <img src={post.image} alt={post.description} />
+                    <img src={post.image ? post.image : linkrLogo} />
                 </DataStyle>
             </ContentContainer>
         </PostContainer>
