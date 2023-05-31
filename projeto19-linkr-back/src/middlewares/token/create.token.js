@@ -9,7 +9,7 @@ export default async function createToken (req, res){
     try {
 
         await db.query(
-            "INSERT INTO tokens (token, user_id) VALUES ($1, $2)",
+            "INSERT INTO sessions (token, \"userId\") VALUES ($1, $2)",
             [token, id]
         )
 

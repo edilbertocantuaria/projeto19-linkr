@@ -15,8 +15,8 @@ import verifyToken from "../middlewares/token/verify.token.js";
 
 
 
-const signRouter = Router()
+export const signRouter = Router()
 
-signRouter.post('/signup', validateSchema(signUpSchema), verifyEmail, signUp);
+signRouter.post('/signup', validateSchema(signUpSchema),  signUp);
 
 signRouter.post('/signin', validateSchema(signInSchema), login,verifyToken, createToken )

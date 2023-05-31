@@ -3,14 +3,14 @@ import bcrypt from "bcrypt"
 
 
 export async function signUp(req, res) {
-    const { name, email, password, photo} = req.body
+    const { username, email, password, image} = req.body
 
     try {
-        await db.query('INSERT INTO users (name, email, password, photo) VALUES ($1, $2, $3, $4)', [
-      name,
+        await db.query('INSERT INTO users (username, email, password, image) VALUES ($1, $2, $3, $4)', [
+      username,
       email,
       bcrypt.hashSync(password, 10),
-      photo,
+      image,
     ]);
     res.status(201).send({ message: 'Usuário cadastrado!' });
 
