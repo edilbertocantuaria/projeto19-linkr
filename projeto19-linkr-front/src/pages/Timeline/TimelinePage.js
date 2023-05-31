@@ -1,95 +1,93 @@
 import React, { useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
-
+import apiPosts from '../../services/apiPosts';
 
 export default function TimelinePage() {
   const [isPublishing, setIsPublishing] = useState(false);
   const [isFilled, setIsFilled] = useState(false);
   const [likesCount, setLikesCount] = useState(0);
-  const [inputUrl, setInputUrl] = useState('');
-  const [inputArticle, setInputArticle] = useState('');
+  const [form, setForm] = useState({ link: '', article: null });
 
-  const handlePublish = () => {
+  const handleForm = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     setIsPublishing(true);
 
-    // trocar por requisição assíncrona de post do banco
-    setTimeout(() => {
+    try {
+      const response = await apiPosts.postLink(form);
       setIsPublishing(false);
-      setInputUrl('');
-      setInputArticle('');
-    }, 1000);
+      setForm({ link: '', article: null });
+      console.log(response.data);
+    } catch (error) {
+      setIsPublishing(false);
+      console.log(error.response.data);
+    }
   };
+
   const handleLike = () => {
     setIsFilled(!isFilled);
     setLikesCount(isFilled ? likesCount - 1 : likesCount + 1);
   };
 
-  const handleInputChange = (e, field) => {
-    const value = e.target.value;
-
-    if (field === 'url') {
-      setInputUrl(value);
-    } else if (field === 'article') {
-      setInputArticle(value);
-    }
-  };
-
   return (
-    <>
-      <Container>
-        <TimelineContainer>
-          <Title>timeline</Title>
-          <PublishContainer>
+    <Container>
+      <TimelineContainer>
+        <Title>timeline</Title>
+        <PublishContainer>
+          <img
+            src="https://yt3.ggpht.com/a/AATXAJw_Xyu7KMjEEeLFaFgSQeQk84Bj6GQqDeLd3w=s900-c-k-c0xffffffff-no-rj-mo"
+            alt="Foto do Usuário"
+          />
+          <FormPublishContainer>
+            <p>What are you going to share today?</p>
+            <form onSubmit={handleSubmit}>
+              <input
+                placeholder="http://..."
+                name="link"
+                value={form.link}
+                onChange={handleForm}
+                disabled={isPublishing}
+              />
+              <input
+                placeholder="Awesome article about #javascript"
+                name="article"
+                value={form.article || ''}
+                onChange={handleForm}
+                disabled={isPublishing}
+              />
+              <button type="submit" disabled={isPublishing}>
+                {isPublishing ? 'Publishing...' : 'Publish'}
+              </button>
+            </form>
+          </FormPublishContainer>
+        </PublishContainer>
+        <PostContainer>
+          <UserContainer>
             <img
               src="https://yt3.ggpht.com/a/AATXAJw_Xyu7KMjEEeLFaFgSQeQk84Bj6GQqDeLd3w=s900-c-k-c0xffffffff-no-rj-mo"
               alt="Foto do Usuário"
             />
-            <FormPublishContainer>
-              <p>What are you going to share today?</p>
-              <form>
-                <input
-                  placeholder="http://..."
-                  value={inputUrl}
-                  onChange={(e) => handleInputChange(e, 'url')}
-                  disabled={isPublishing}
-                />
-                <input
-                  placeholder="Awesome article about #javascript"
-                  value={inputArticle}
-                  onChange={(e) => handleInputChange(e, 'article')}
-                  disabled={isPublishing}
-                />
-                <button onClick={handlePublish} disabled={isPublishing}>
-                  {isPublishing ? 'Publishing...' : 'Publish'}
-                </button>
-              </form>
-            </FormPublishContainer>
-          </PublishContainer>
-          <PostContainer>
-            <UserContainer>
-              <img
-                src="https://yt3.ggpht.com/a/AATXAJw_Xyu7KMjEEeLFaFgSQeQk84Bj6GQqDeLd3w=s900-c-k-c0xffffffff-no-rj-mo"
-                alt="Foto do Usuário"
-              />
-              <StyledHeartIcon
-                isfilled={isFilled}
-                onClick={handleLike}
-              />
-              <p>{likesCount} {likesCount === 1 ? 'like' : 'likes'}</p>
-            </UserContainer>
-            <ContentContainer>
-              <h3>Bob Esponja</h3>
-              <p>
-                Vocês já pararam para pensar o quanto é estranho o Seu Sirigueijo
-                vender hambúrger de Siri?
-              </p>
-              <div>Pesquisar biblioteca</div>
-            </ContentContainer>
-          </PostContainer>
-        </TimelineContainer>
-      </Container>
-    </>
+            <StyledHeartIcon
+              isfilled={isFilled}
+              onClick={handleLike}
+            />
+            <p>{likesCount} {likesCount === 1 ? 'like' : 'likes'}</p>
+          </UserContainer>
+          <ContentContainer>
+            <h3>Bob Esponja</h3>
+            <p>
+              Vocês já pararam para pensar o quanto é estranho o Seu Sirigueijo
+              vender hambúrger de Siri?
+            </p>
+            <div>Pesquisar biblioteca</div>
+          </ContentContainer>
+        </PostContainer>
+      </TimelineContainer>
+    </Container>
   );
 }
 

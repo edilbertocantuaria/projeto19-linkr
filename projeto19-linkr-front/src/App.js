@@ -13,7 +13,7 @@ export default function App() {
     <PagesContainer>
 
       <BrowserRouter>
-       
+        <Header />
         <Routes>
           <Route path="/" element={<SignIn />} />
           <Route path="/sign-up" element={<SignUp />} />
