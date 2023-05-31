@@ -1,4 +1,19 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
+
+const pulseAnimation = keyframes`
+  0% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+  100% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+`;
 
 export const Container = styled.div`
   background-color: #333333;
@@ -91,4 +106,33 @@ export const FormPublishContainer = styled.div`
     }
   }
 `;
+
+export const LoadingStyle = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  p {
+    margin-top: 30px;
+    color: white;
+    font-family: 'Oswald';
+    font-size: 24px;
+    font-weight: 700;
+    animation: ${pulseAnimation} 2s infinite;
+  }
+`;
+
+export const EmptyStyle = styled.div`
+ display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  p {
+    margin-top: 30px;
+    color: white;
+    font-family: 'Oswald';
+    font-size: 24px;
+    font-weight: 700;
+  }
+`
 

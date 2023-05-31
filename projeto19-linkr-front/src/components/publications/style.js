@@ -1,5 +1,6 @@
 import styled, { keyframes } from 'styled-components';
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
+import { Link } from 'react-router-dom';
 
 export const heartBeatAnimation = keyframes`
   0% {
@@ -21,21 +22,21 @@ export const PostContainer = styled.div`
   padding: 15px;
   gap: 15px;
   margin-bottom: 16px;
-  img {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    margin-bottom: 17px;
-  }
   @media (max-width: 600px) {
     border-radius: 0;
   }
 `;
 
+export const UserImage = styled.img`
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-bottom: 17px;
+`
+
 export const UserContainer = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
   text-align: center;
   align-items: center;
   p{
@@ -50,7 +51,7 @@ export const UserContainer = styled.div`
 `
 
 export const StyledHeartIcon = styled(({ isfilled, ...props }) =>
-    isfilled ? <AiFillHeart {...props} /> : <AiOutlineHeart {...props} />
+  isfilled ? <AiFillHeart {...props} /> : <AiOutlineHeart {...props} />
 )`
   font-size: 17px;
   cursor: pointer;
@@ -76,3 +77,42 @@ export const ContentContainer = styled.div`
   div {
   }
 `;
+
+export const DataStyle = styled(Link)`
+    display: flex;
+    img{
+        min-height: fit-content;
+        border-radius: 0;
+        width: 150px;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 0px 11px 11px 0px;
+    }
+`;
+export const DataText = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding: 17px;
+    border: 1px solid gray;
+    border-right: none;
+    border-radius: 10px 0px 0px 11px;
+    p{
+        &:nth-child(1){
+            font-size: 16px;
+            line-height: 19px;
+            color: #CECECE;
+        }
+        &:nth-child(2){
+            font-size: 11px;
+            line-height: 13px;
+            color: #9B9595;
+        }
+        &:nth-child(3){
+            font-size: 11px;
+            line-height: 13px;
+            color: #CECECE;
+        }
+    }
+;
+`
