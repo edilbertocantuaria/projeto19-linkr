@@ -3,18 +3,18 @@ import styled from "styled-components"
 
 
 
-export default function SignIn(){
-    return(
-      
-        <ContainerSignIn>
-           <Left>
-           <h1>linkr</h1>
-           <p>save, share and discover<br/> the best links on the web</p>
+export default function SignIn() {
+  return (
 
-           </Left>
-           <Right>
-           <form >
-           <input
+    <ContainerSignIn>
+      <Left>
+        <h1>linkr</h1>
+        <p>save, share and discover<br /> the best links on the web</p>
+
+      </Left>
+      <Right>
+        <form >
+          <input
             placeholder="e-mail"
             type="email"
 
@@ -31,18 +31,17 @@ export default function SignIn(){
           </button>
         </form>
         <p >First time? Create an account!</p>
-           
-           </Right>
 
-        </ContainerSignIn>
-        
-    )
-            
+      </Right>
+
+    </ContainerSignIn>
+
+  )
+
 }
 
 const ContainerSignIn = styled.main`
 display: flex;
-
 `
 
 const Left = styled.div`
