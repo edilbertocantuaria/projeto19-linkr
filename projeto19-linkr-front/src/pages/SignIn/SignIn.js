@@ -1,30 +1,24 @@
-import styled from "styled-components"
+import { Right, ContainerSign } from "./style.js"
+import Banner from "../../components/banner/banner.js"
+import { useNavigate } from 'react-router-dom';
 
+export default function SignIn(){
 
+  const navigate = useNavigate()
 
-
-export default function SignIn() {
-  return (
-
-    <ContainerSignIn>
-      <Left>
-        <h1>linkr</h1>
-        <p>save, share and discover<br /> the best links on the web</p>
-
-      </Left>
-      <Right>
-        <form >
-          <input
+    return(  
+        <ContainerSign>
+         <Banner/>
+           <Right>
+           <form >
+           <input
             placeholder="e-mail"
             type="email"
-
-
           />
           <input
             placeholder="password"
             type="password"
             autoComplete="current-password"
-
           />
           <button type="submit" >
             Log In
@@ -137,3 +131,10 @@ justify-content: center;
     }
 
 `
+        <p onClick={() => navigate('/sign-up')}>First time? Create an account!</p>     
+           </Right>
+        </ContainerSign>
+        
+    )
+            
+}
