@@ -5,11 +5,19 @@ import Header from "./components/header/Header.js"
 import TimelinePage from "./pages/Timeline/TimelinePage.js"
 import SignUp from "./pages/SignUp/signUp.js"
 import HashtagPage from "./pages/Hashtag/HashtagPage.js"
+import Provider from "./contexts/all.provider.js"
+import UserContext1 from "./contexts/use.context.js"
+import React, { useState } from "react";
+
 
 export default function App() {
+  const [user, setUser] = useState("");
 
   return (
 
+
+<UserContext1.Provider value={{ user, setUser }}>
+    <Provider>
     <PagesContainer>
 
       <BrowserRouter>
@@ -23,6 +31,9 @@ export default function App() {
 
       </BrowserRouter>
     </PagesContainer>
+    </Provider>
+    </UserContext1.Provider>
+
   )
 }
 
