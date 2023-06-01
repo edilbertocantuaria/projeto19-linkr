@@ -2,20 +2,18 @@ import { v4 as uuidV4 } from "uuid"
 
 import { db } from "../../database/database.connection.js"
 
-export default async function createToken (req, res){
-    const id = req.body.userId
-    const token = uuidV4()
+export default async function createToken(userId) {
+    const token = uuidV4();
 
     try {
-
         await db.query(
-            "INSERT INTO tokens (token, user_id) VALUES ($1, $2)",
-            [token, id]
-        )
+            "INSERT INTO sessions (token, \"userId\") VALUES ($1, $2)",
+            [token, userId]
+        );
 
-        return res.send({ token })
+        return token;
     } catch (err) {
-        console.log(err)
-        return res.sendStatus(500)
+        console.log(err);
+        throw err;
     }
 }

@@ -4,9 +4,9 @@ import { db } from "../../database/database.connection.js";
 export async function createUser(user){
     if(!user)return
     await db.query(`
-        INSERT INTO users (name, password, email, photo)
+        INSERT INTO users (username, password, email, image)
         VALUES ($1, $2, $3, $4)
-    `, [user.name, user.password, user.email, user.photo]);
+    `, [user.username, user.password, user.email, user.image]);
 }
 
 

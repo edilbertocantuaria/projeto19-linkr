@@ -19,4 +19,6 @@ const signRouter = Router()
 
 signRouter.post('/signup', validateSchema(signUpSchema), verifyEmail, signUp);
 
-signRouter.post('/signin', validateSchema(signInSchema), login,verifyToken, createToken )
+signRouter.post('/signin', validateSchema(signInSchema), login, createToken, verifyToken, );
+
+export default signRouter

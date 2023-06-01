@@ -6,7 +6,7 @@ export default async function verifyToken (req, res, next){
 
     try {
 
-        const response = await db.query('SELECT token FROM tokens WHERE "user_id" = $1', [id])
+        const response = await db.query('SELECT token FROM sessions WHERE \"userId\" = $1', [id])
 
         if (response.rowCount !== 0) {
             const { token } = response.rows[0]
