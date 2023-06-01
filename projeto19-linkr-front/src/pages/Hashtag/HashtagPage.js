@@ -14,7 +14,6 @@ export default function HashtagPage() {
 
   return (
     <>
-      <Header />
       <Container>
         <TimelineContainer>
           <Title>#react</Title>
