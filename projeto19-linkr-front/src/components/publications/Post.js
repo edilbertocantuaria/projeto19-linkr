@@ -1,16 +1,24 @@
 import React from 'react';
+import linkrLogo from '../../assets/linkrLogo.png';
 import {
     ContentContainer,
     PostContainer,
+    UserImage,
     StyledHeartIcon,
-    UserContainer
+    UserContainer,
+    DataStyle,
+    DataText
 } from './style';
 
-export default function Post({ isFilled, likesCount, handleLike }) {
+export default function Post({ post, isFilled, likesCount, handleLike }) {
+    const handleDataStyleClick = () => {
+        window.open(post.link, '_blank');
+    };
+
     return (
         <PostContainer>
             <UserContainer>
-                <img
+                <UserImage
                     src="https://yt3.ggpht.com/a/AATXAJw_Xyu7KMjEEeLFaFgSQeQk84Bj6GQqDeLd3w=s900-c-k-c0xffffffff-no-rj-mo"
                     alt="Foto do Usuário"
                 />
@@ -21,12 +29,17 @@ export default function Post({ isFilled, likesCount, handleLike }) {
             </UserContainer>
             <ContentContainer>
                 <h3>Bob Esponja</h3>
-                <p>
-                    Vocês já pararam para pensar o quanto é estranho o Seu Sirigueijo
-                    vender hambúrger de Siri?
-                </p>
-                <div>Pesquisar biblioteca</div>
+                <p>{post.article}</p>
+                <DataStyle onClick={handleDataStyleClick}>
+                    <DataText>
+                        <p>{post.title}</p>
+                        <p>{post.description}</p>
+                        <p>{post.link}</p>
+                    </DataText>
+                    <img src={post.image ? post.image : linkrLogo} />
+                </DataStyle>
             </ContentContainer>
         </PostContainer>
     );
 }
+
