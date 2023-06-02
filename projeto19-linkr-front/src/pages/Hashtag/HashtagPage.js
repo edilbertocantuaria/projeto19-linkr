@@ -1,58 +1,69 @@
 import styled, { keyframes } from 'styled-components';
-import Header from "../../components/header/Header";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
+import axios from 'axios';
+import { useNavigate, useParams } from 'react-router-dom';
+import ReactHashtag from 'react-hashtag';
+import Post from '../../components/publications/Post';
 
 export default function HashtagPage() {
   const handleLike = () => {
     setIsFilled(!isFilled);
     setLikesCount(isFilled ? likesCount - 1 : likesCount + 1);
   };
+  const { hashtag } = useParams()
+
+  const [posts, setPosts] = useState([]);
+  const [allHashtags, setAllHashtags] = useState([]);
 
   const [isFilled, setIsFilled] = useState(false);
   const [likesCount, setLikesCount] = useState(0);
+  const navigate = useNavigate()
 
+  useEffect(() => {
+    
+    axios.get(`${process.env.REACT_APP_API_URL}/hashtag`)
+      .then(res => {
+        setAllHashtags(res.data)
+      })
+      .catch(err => console.log(err.message))
+
+    axios.get(`${process.env.REACT_APP_API_URL}/hashtag/${hashtag}?${Date.now()}`)
+      .then(res => {
+        setPosts(res.data)
+      })
+      .catch(err => console.log(err.message))
+
+  }, [hashtag])
   return (
     <>
-      <Header />
       <Container>
         <TimelineContainer>
-          <Title>#react</Title>
-          <PostContainer>
-            <UserContainer>
-              <img
-                src="https://yt3.ggpht.com/a/AATXAJw_Xyu7KMjEEeLFaFgSQeQk84Bj6GQqDeLd3w=s900-c-k-c0xffffffff-no-rj-mo"
-                alt="Foto do Usuário"
-              />
-              <StyledHeartIcon
-                isfilled={isFilled}
-                onClick={handleLike}
-              />
-              <p>{likesCount} {likesCount === 1 ? 'like' : 'likes'}</p>
-            </UserContainer>
-            <ContentContainer>
-              <h3>Bob Esponja</h3>
-              <p>
-                Vocês já pararam para pensar o quanto é estranho o Seu Sirigueijo
-                vender hambúrger de Siri?
-              </p>
-              <div>Pesquisar biblioteca</div>
-            </ContentContainer>
-          </PostContainer>
+          <Title>#{hashtag}</Title>
+          {posts.map(post => (
+            <Post
+              key={post.id}
+              postId={post.id}
+              post={post}
+              isFilled={isFilled}
+              likesCount={likesCount}
+              handleLike={handleLike}
+            />
+          )
+          )}
+
         </TimelineContainer>
         <HashtagsContainer>
-          <span>trending</span>
-          <CustomHr/>
-          <p>#BORA</p>
-          <p>#BORA</p>
-          <p>#BORA</p>
-          <p>#BORA</p>
-          <p>#BORA</p>
-          <p>#BORA</p>
-          <p>#BORA</p>
-          <p>#BORA</p>
-          <p>#BORA</p>
-          <p>#BORA</p>
+          <h1>trending</h1>
+          <CustomHr />
+          {allHashtags.map(h =>
+            <p >
+              <ReactHashtag onHashtagClick={val => {
+                navigate(`/hashtag/${val.split('#')[1]}`, { replace: true })
+              }}>
+                {`#${h.hashtag}`}
+              </ReactHashtag>
+            </p>)}
         </HashtagsContainer>
       </Container>
     </>
@@ -89,13 +100,13 @@ const HashtagsContainer = styled.div`
     font-family: 'Lato';
     line-height: 23px;
   }
-  span{
+  h1{
     font-size: 27px;
     font-family: 'Oswald';
     line-height: 40px;
   }
 `;
-const CustomHr=styled.hr`
+const CustomHr = styled.hr`
   border: 1px solid #484848;
   margin-top: 12px;
   margin-bottom: 22px;

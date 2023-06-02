@@ -67,6 +67,8 @@ export const ContentContainer = styled.div`
   font-family: 'Lato';
   font-weight: 400;
   gap: 7px;
+  font-size: 17px;
+    line-height: 20px;
   h3 {
     font-size: 19px;
     line-height: 23px;
@@ -74,6 +76,9 @@ export const ContentContainer = styled.div`
   p {
     font-size: 17px;
     line-height: 20px;
+  }
+  span{
+    color: green;
   }
 
 `;

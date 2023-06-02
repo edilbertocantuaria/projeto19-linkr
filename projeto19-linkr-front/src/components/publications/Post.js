@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import linkrLogo from '../../assets/linkrLogo.png';
+import ReactHashtag from "react-hashtag"
 import {
     ContentContainer,
     PostContainer,
@@ -9,12 +10,39 @@ import {
     DataStyle,
     DataText
 } from './style';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
-export default function Post({ post, isFilled, likesCount, handleLike }) {
+export default function Post({ post, isFilled, likesCount, handleLike, postId, TL }) {
     const handleDataStyleClick = () => {
         window.open(post.link, '_blank');
     };
 
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        if (TL) {
+            if (post.article) {
+                if (post.article.includes("#")) {
+                    let postComHashtag = post.article.split('#');
+                    if (postComHashtag.length > 0) {
+                        const addHashtags = async () => {
+                            for (let i = 1; i < postComHashtag.length; i++) {
+                                console.log("for");
+                                axios.post(`${process.env.REACT_APP_API_URL}/hashtag`, {
+                                    "postId": postId,
+                                    "hashtag": postComHashtag[i]
+                                })
+                                .then(res=>console.log(res.data))
+                                .catch(err=>console.log(err.message))
+                            }
+                        };
+                        addHashtags();
+                    }
+                }
+            }
+        }
+    }, [])
     return (
         <PostContainer>
             <UserContainer>
@@ -29,7 +57,15 @@ export default function Post({ post, isFilled, likesCount, handleLike }) {
             </UserContainer>
             <ContentContainer>
                 <h3>Bob Esponja</h3>
-                <p>{post.article}</p>
+
+                <p>
+                    {post.article ? (
+                        <ReactHashtag onHashtagClick={val => navigate(`/hashtag/${val.split('#')[1]}`)}>
+                            {post.article}
+                        </ReactHashtag>
+                    ) : ""}
+
+                </p>
                 <DataStyle onClick={handleDataStyleClick}>
                     <DataText>
                         <p>{post.title}</p>
