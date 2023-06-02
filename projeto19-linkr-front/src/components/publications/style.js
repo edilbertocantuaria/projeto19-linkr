@@ -22,8 +22,9 @@ export const PostContainer = styled.div`
   padding: 15px;
   gap: 15px;
   margin-bottom: 16px;
-  max-width: fit-content;
+  max-width: 611px;
   @media (max-width: 600px) {
+    width: 100%;
     border-radius: 0;
   }
 `;
