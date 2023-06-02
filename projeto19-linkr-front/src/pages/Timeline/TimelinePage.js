@@ -59,7 +59,7 @@ export default function TimelinePage() {
 
     fetchPosts();
   }, [isPublishing]);
-
+  console.log("t",posts)
   return (
     <Container>
       <TimelineContainer>
@@ -110,6 +110,8 @@ export default function TimelinePage() {
           posts.map((post) => (
             <Post
               key={post.id}
+              TL={true}
+              postId={post.id}
               post={post}
               isFilled={isFilled}
               likesCount={likesCount}
