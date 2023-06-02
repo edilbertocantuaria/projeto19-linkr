@@ -71,16 +71,22 @@ export default function HashtagPage() {
 }
 
 const Container = styled.div`
+  width: 100%;
   background-color: #333333;
   min-height: calc(100vh - 72px);
   height: calc(100% - 72px);
   display: flex;
   justify-content: center;
   gap: 25px;
+  @media (max-width: 600px) {
+    flex-direction: column-reverse;
+    
+  }
 `;
 
 const TimelineContainer = styled.div`
-  width: 611px;
+  width: 100%;
+  max-width: 611px;
 `;
 
 const HashtagsContainer = styled.div`
@@ -105,11 +111,23 @@ const HashtagsContainer = styled.div`
     font-family: 'Oswald';
     line-height: 40px;
   }
+  @media (max-width: 600px) {
+    margin-top: 10px;
+    max-height: 164px;
+    overflow: scroll;
+    padding: 6px;
+    margin-left: 17px;
+
+  }
 `;
 const CustomHr = styled.hr`
   border: 1px solid #484848;
   margin-top: 12px;
   margin-bottom: 22px;
+  @media (max-width: 600px) {
+    margin-top: 6px;
+    margin-bottom: 10px;
+  }
 `;
 const Title = styled.h1`
   color: white;
@@ -119,8 +137,9 @@ const Title = styled.h1`
   margin-bottom: 43px;
   margin-top: 78px;
   @media (max-width: 600px) {
+    font-size: 33px;
     margin-left: 17px;
-    margin-top: 43px;
+    margin-top: 20px;
     margin-bottom: 26px;
   }
 `;
